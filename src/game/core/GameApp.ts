@@ -1,9 +1,10 @@
-import { Application } from "pixi.js";
+import { Application, Assets } from "pixi.js";
 import { SceneManager } from "@/game/core/SceneManager";
 import { EventBus } from "@/game/core/EventBus";
 import type { GameEvents } from "@/game/core/events";
 import { RunFlow } from "@/game/core/RunFlow";
 import { TOTAL_DEFINED_LEVELS } from "@/game/data/levels";
+import { PRELOAD_TEXTURES } from "@/game/data/sprites";
 import { HomeScene } from "@/game/scenes/HomeScene";
 import { GameplayScene } from "@/game/scenes/GameplayScene";
 import { ShopScene } from "@/game/scenes/ShopScene";
@@ -27,6 +28,7 @@ export class GameApp {
 
     host.appendChild(this.app.canvas);
     this.sceneManager = new SceneManager(this.app.stage);
+    await Assets.load(PRELOAD_TEXTURES);
     this.bindTicker();
     this.bindResize(host);
     this.toHome();

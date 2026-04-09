@@ -1,0 +1,31 @@
+{
+  "source_files": [
+    "public/assets/raw/assets1.webp",
+    "public/assets/raw/assets2.webp"
+  ],
+  "cuts_output": "public/assets/sprites/raw_cuts",
+  "selected_for_gameplay": {
+    "gold_small": [
+      "public/assets/game/gold_small_01.png",
+      "public/assets/game/gold_small_02.png",
+      "public/assets/game/gold_small_03.png"
+    ],
+    "gold_large": [
+      "public/assets/game/gold_large_01.png",
+      "public/assets/game/gold_large_02.png"
+    ],
+    "rock": [
+      "public/assets/game/rock_01.png",
+      "public/assets/game/rock_02.png"
+    ],
+    "bag": [
+      "public/assets/game/bag_01.png"
+    ]
+  },
+  "detection_notes": {
+    "gold_small": "Nugget clusters with small silhouette from assets2.",
+    "gold_large": "Large nugget piles with wider silhouette from assets2.",
+    "rock": "Dark, low-value looking stones from assets1.",
+    "bag": "Green satchel-like object from assets1."
+  }
+}

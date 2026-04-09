@@ -35,6 +35,7 @@ interface FloatingText {
 
 export class GameplayScene implements Scene {
   readonly container = new Container();
+  private static readonly SWING_PREVIEW_LENGTH = 34;
   private readonly world = new Container();
   private readonly hud: HUD;
   private readonly overlay: Overlay;
@@ -140,6 +141,8 @@ export class GameplayScene implements Scene {
       this.applyPointerAim(pointer.x, pointer.y);
     }
     if (fireHook(this.hookState)) {
+      // Keep continuity from swing preview so hook does not snap back to center on fire.
+      this.hookState.ropeLength = Math.max(this.hookState.ropeLength, GameplayScene.SWING_PREVIEW_LENGTH);
       this.eventBus.emit("HOOK_FIRED", { angle: this.hookState.angle });
     }
   }
@@ -248,15 +251,17 @@ export class GameplayScene implements Scene {
     this.collectibles = this.collectibles.filter((x) => x.id !== item.id);
   }
 
-  private currentHookPosition(): { x: number; y: number } {
+  private currentHookPosition(length = this.hookState.ropeLength): { x: number; y: number } {
     return {
-      x: this.originX + Math.cos(this.hookState.angle) * this.hookState.ropeLength,
-      y: this.originY + Math.sin(this.hookState.angle) * this.hookState.ropeLength,
+      x: this.originX + Math.cos(this.hookState.angle) * length,
+      y: this.originY + Math.sin(this.hookState.angle) * length,
     };
   }
 
   private renderHook(): void {
-    const end = this.currentHookPosition();
+    const renderedLength =
+      this.hookState.state === "swinging" ? GameplayScene.SWING_PREVIEW_LENGTH : this.hookState.ropeLength;
+    const end = this.currentHookPosition(renderedLength);
     this.hook.setPose(this.originX, this.originY, end.x, end.y);
   }
 

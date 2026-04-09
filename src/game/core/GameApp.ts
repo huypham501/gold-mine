@@ -66,7 +66,7 @@ export class GameApp {
         return;
       }
       const ratio = 16 / 10;
-      const width = host.clientWidth;
+      const width = Math.max(840, host.clientWidth);
       const height = Math.min(window.innerHeight - 24, width / ratio);
       host.style.height = `${Math.max(420, height)}px`;
       app.renderer.resize(width, Math.max(420, height));
